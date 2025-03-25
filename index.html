@@ -1,1 +1,920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tous dans le même bateau - Projet inclusif</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2e86de;
+            --secondary: #10ac84;
+            --accent: #f39c12;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --danger: #e74c3c;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #1c73c5;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e67e22;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-scrolled {
+            background-color: var(--dark);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: #636e72;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Introduction Section */
+        .intro-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .intro-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .intro-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .intro-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Benefits Section */
+        .benefits {
+            background-color: #f1f2f6;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .benefit-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Séjour Section */
+        .sejour-content {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sejour-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .sejour-info {
+            padding: 30px;
+        }
+        
+        .sejour-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .sejour-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .sejour-detail-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .testimonials .section-title h2 {
+            color: white;
+        }
+        
+        .testimonials .section-title p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 20px;
+        }
+        
+        .testimonial-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .testimonial-content::before {
+            content: """;
+            position: absolute;
+            top: 0;
+            left: 20px;
+            font-size: 5rem;
+            line-height: 1;
+            color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .slider-control {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-control:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        /* Form Section */
+        .form-section {
+            background-color: #f1f2f6;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--dark);
+            padding: 15px 20px;
+        }
+        
+        .form-step {
+            color: white;
+            font-weight: 500;
+            position: relative;
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .form-step.active {
+            opacity: 1;
+        }
+        
+        .form-step::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        
+        .form-step.active::after {
+            width: 100%;
+        }
+        
+        .form-content {
+            padding: 40px;
+        }
+        
+        .form-page {
+            display: none;
+        }
+        
+        .form-page.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 134, 222, 0.2);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .form-check input {
+            margin-right: 10px;
+        }
+        
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn-prev {
+            background-color: var(--dark);
+        }
+        
+        .btn-next {
+            background-color: var(--primary);
+        }
+        
+        .btn-submit {
+            background-color: var(--success);
+        }
+        
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .form-steps {
+                overflow-x: auto;
+            }
+            
+            .form-step {
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+            
+            .form-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        .modal-icon {
+            font-size: 3rem;
+            color: var(--success);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Tous dans le même bateau</a>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#intro">Le projet</a></li>
+                <li><a href="#benefits">Avantages</a></li>
+                <li><a href="#sejour">Le séjour</a></li>
+                <li><a href="#testimonials">Témoignages</a></li>
+                <li><a href="#inscription">S'inscrire</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop>
+            <source src="/api/placeholder/400/320" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture vidéo.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Tous dans le même bateau</h1>
+            <p>Ensemble, célébrons nos différences pour naviguer vers l'excellence</p>
+            <a href="#inscription" class="btn btn-accent">Rejoindre l'aventure</a>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section id="intro" class="intro">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notre Vision</h2>
+                <p>Découvrez comment la diversité et l'inclusion peuvent transformer votre équipe en un équipage performant</p>
+            </div>
+            <div class="intro-content">
+                <div class="intro-text">
+                    <h3>La force de nos différences</h3>
+                    <p>Le projet "Tous dans le même bateau" est né d'une conviction profonde : la diversité est une richesse inestimable pour nos équipes. Que ce soit en termes de genre, d'âge, de culture, de capacités ou d'expériences, nos différences sont complémentaires et constituent notre plus grande force.</p>
+                    <p>Notre mission est de promouvoir et démontrer par l'expérience que les équipages mixtes et inclusifs sont non seulement plus créatifs et résilients, mais aussi plus performants face aux défis.</p>
+                    <p>À travers des expériences immersives en milieu nautique, nous créons des conditions idéales pour développer l'esprit d'équipe, la communication et la coopération entre personnes aux profils variés.</p>
+                </div>
+                <div class="intro-image">
+                    <img src="/api/placeholder/400/320" alt="Équipage diversifié travaillant ensemble">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Les avantages des équipes diversifiées</h2>
+                <p>Découvrez pourquoi les équipes inclusives excellent dans tous les domaines</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation accrue</h3>
+                    <p>Les équipes diversifiées génèrent 19% de revenus supplémentaires grâce à l'innovation, selon une étude de BCG.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Meilleure résolution de problèmes</h3>
+                    <p>La diversité cognitive améliore de 87% la capacité d'une équipe à résoudre des problèmes complexes.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Performance financière</h3>
+                    <p>Les entreprises avec une forte diversité sont 35% plus susceptibles de surpasser leurs concurrents.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Meilleur climat de travail</h3>
+                    <p>67% des chercheurs d'emploi considèrent la diversité comme un facteur important dans leur recherche.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Séjour Section -->
+    <section id="sejour" class="sejour">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notre séjour inclusif</h2>
+                <p>Une expérience unique au lac de l'Eau d'Heure</p>
+            </div>
+            <div class="sejour-content">
+                <img src="/api/placeholder/400/320" alt="Lac de l'Eau d'Heure" class="sejour-image">
+                <div class="sejour-info">
+                    <h3>Une aventure inoubliable au cœur de la nature</h3>
+                    <p>Notre séjour "Tous dans le même bateau" vous invite à une expérience transformative dans un cadre exceptionnel. Pendant une semaine, vous vivrez une aventure humaine riche en apprentissages et en émotions.</p>
+                    <div class="sejour-details">
+                        <div class="sejour-detail">
+                            <div class="sejour-detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Localisation</h4>
+                                <p>Lac de l'Eau d'Heure, le plus grand lac artificiel de Belgique, niché au cœur d'une nature préservée.</p>
+                            </div>
+                        </div>
+                        <div class="sejour-detail">
+                            <div class="sejour-detail-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div>
+                                <h4>Hébergement</h4>
+                                <p>Gîte écologique au milieu de la forêt, entièrement accessible et conçu pour le confort de tous.</p>
+                            </div>
+                        </div>
+                        <div class="sejour-detail">
+                            <div class="sejour-detail-icon">
+                                <i class="fas fa-ship"></i>
+                            </div>
+                            <div>
+                                <h4>Activités nautiques</h4>
+                                <p>Voile, kayak, stand-up paddle adaptés à tous les niveaux et besoins spécifiques.</p>
+                            </div>
+                        </div>
+                        <div class="sejour-detail">
+                            <div class="sejour-detail-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div>
+                                <h4>Activités nature</h4>
+                                <p>Randonnées accessibles, ateliers écologiques, découverte de la biodiversité locale.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Témoignages</h2>
+                <p>Découvrez les expériences inspirantes de nos participants</p>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-slides" id="testimonial-slides">
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <p>"Cette expérience a complètement changé ma vision du travail d'équipe. J'ai appris que nos différences ne sont pas des obstacles mais des atouts complémentaires. Notre équipage composé de personnes aux profils très variés a réussi à se coordonner parfaitement pour remporter le défi de navigation."</p>
+                            <div class="testimonial-author">
+                                <img src="/api/placeholder/400/320" alt="Sophie Martin">
+                                <div>
+                                    <h4>Sophie Martin</h4>
+                                    <p>Participante 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <p>"En tant que personne en situation de handicap, j'appréhendais les activités nautiques. Mais grâce à l'accompagnement bienveillant et aux adaptations proposées, j'ai pu participer pleinement et même prendre la barre du voilier ! Cette expérience m'a prouvé que l'inclusion n'est pas un vain mot."</p>
+                            <div class="testimonial-author">
+                                <img src="/api/placeholder/400/320" alt="Thomas Dubois">
+                                <div>
+                                    <h4>Thomas Dubois</h4>
+                                    <p>Participant 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <p>"J'ai amené mon équipe managériale pour un team building et les résultats dépassent toutes nos attentes. Les activités proposées nous ont permis de découvrir les talents cachés de chacun et de créer une dynamique de groupe incroyable qui perdure au bureau. Notre productivité a augmenté de 30% depuis notre retour !"</p>
+                            <div class="testimonial-author">
+                                <img src="/api/placeholder/400/320" alt="Claire Lefort">
+                                <div>
+                                    <h4>Claire Lefort</h4>
+                                    <p>Directrice RH, participante 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-control" id="prev-slide">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-control" id="next-slide">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="inscription" class="form-section">
+        <div class="container">
+            <div class="section-
